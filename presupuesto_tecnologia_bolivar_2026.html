@@ -598,7 +598,7 @@ tr.total-row td.r { color: #fff; }
   <h1>Presupuesto de <strong>Gastos</strong><br>Tecnología e Infraestructura</h1>
   <div class="hero-meta">
     <span class="hero-pill">Enero – Mayo 2026 · Real Intelisis</span>
-    <span class="hero-pill accent">17 partidas · $93,959.39 acumulado</span>
+    <span class="hero-pill accent">25 partidas · $93,959.39 acumulado</span>
     <span class="hero-pill">Fuente: DatGastosConta + PPTO Josué Ramírez</span>
   </div>
   <div class="hero-actions">
@@ -684,7 +684,7 @@ tr.total-row td.r { color: #fff; }
   <!-- TABLE SECTION -->
   <div class="section-eyebrow">Detalle completo</div>
   <div class="section-heading">Partidas de <strong>presupuesto</strong></div>
-  <div class="section-sub">17 partidas · Enero – Mayo 2026</div>
+  <div class="section-sub">25 partidas · Enero – Mayo 2026</div>
 
   <div class="table-wrap-outer">
     <div class="table-header">
@@ -750,23 +750,31 @@ tr.total-row td.r { color: #fff; }
 const meses = ["Ene","Feb","Mar","Abr","May"];
 
 const partidas = [
-  { p:"ADM-Licencias de programas",          cta:"412010904", cat:"Licencias",         cls:"ct-lic", f:"intelisis", v:[3761.29,6165.60,4191.54,8936.29,3858.79] },
-  { p:"UDESA-Suscripciones de Software",     cta:"412010905", cat:"Suscripciones",     cls:"ct-sus", f:"intelisis", v:[16602.84,597.87,0,2378.75,0] },
-  { p:"UDESA-Servicios de Tecnología",       cta:"412011220", cat:"Servicios TI",      cls:"ct-ti",  f:"intelisis", v:[0,769.92,343.79,7409.64,0] },
-  { p:"UDESA-Soporte Técnico Tercerizado",   cta:"412011220", cat:"Servicios TI",      cls:"ct-ti",  f:"intelisis", v:[1100.00,1417.90,1980.60,1400.30,0] },
-  { p:"VTA-Licencias de programas",          cta:"413011004", cat:"Licencias",         cls:"ct-lic", f:"intelisis", v:[4446.68,0,0,0,0] },
-  { p:"ADM-Accesorios, paquetes y prog.",    cta:"412010907", cat:"Hardware / Equipo", cls:"ct-hw",  f:"intelisis", v:[335.16,787.00,1215.56,1222.16,0] },
-  { p:"ADM-Mant. mobiliario y equipo",       cta:"412010602", cat:"Hardware / Equipo", cls:"ct-hw",  f:"intelisis", v:[0,1041.00,2201.00,72.00,0] },
-  { p:"URENT-Mtto. equipos informática",     cta:"413010702", cat:"Hardware / Equipo", cls:"ct-hw",  f:"intelisis", v:[166.88,0,840.00,73.43,0] },
-  { p:"UDA MKT-Sitio web / Promocional",    cta:"412011406", cat:"Marketing Digital", cls:"ct-mkt", f:"intelisis", v:[854.46,854.46,1543.59,55.74,0] },
-  { p:"ADM-Suscripciones y publicaciones",   cta:"412010905", cat:"Suscripciones",     cls:"ct-sus", f:"intelisis", v:[2101.80,331.80,171.80,151.80,0] },
-  { p:"ADM-Leasing fotocopiadora",           cta:"412010502", cat:"Hardware / Equipo", cls:"ct-hw",  f:"intelisis", v:[0,0,0,322.25,0] },
-  { p:"CDA-Licencias de programas",          cta:"413021004", cat:"Licencias",         cls:"ct-lic", f:"intelisis", v:[0,0,0,210.00,0] },
-  { p:"UDA DH-Capacitaciones",               cta:"412010302", cat:"Des. Humano",       cls:"ct-dh",  f:"intelisis", v:[0,81.00,0,81.00,0] },
-  { p:"UDA DH-Reuniones personal",           cta:"412010304", cat:"Des. Humano",       cls:"ct-dh",  f:"intelisis", v:[0,26.55,0,107.15,0] },
-  { p:"ADM-Comunicaciones",                  cta:"412010701", cat:"Comunicaciones",    cls:"ct-com", f:"nuevo",     v:[600.00,600.00,600.00,600.00,600.00] },
-  { p:"ADM-Consumibles Fotocopiadora",       cta:"412010906", cat:"Hardware / Equipo", cls:"ct-hw",  f:"nuevo",     v:[950.00,0,550.00,400.00,550.00] },
-  { p:"ADM-Mant. Planta Telefónica",         cta:"412010605", cat:"Comunicaciones",    cls:"ct-com", f:"nuevo",     v:[380.00,0,0,380.00,0] },
+  { p:"ADM-LICENCIAS DE PROGRAMAS",        prov:"Intelisis (Grupo Octo)",                  cta:"412010904", cat:"Licencias",        cls:"ct-lic", f:"intelisis", v:[3500,3500,3500,3500,3500] },
+  { p:"ADM-LICENCIAS DE PROGRAMAS",        prov:"Licencia Fortigate",                       cta:"412010904", cat:"Licencias",        cls:"ct-lic", f:"intelisis", v:[0,0,0,5000,0] },
+  { p:"ADM-LICENCIAS DE PROGRAMAS",        prov:"Laserfiche",                               cta:"412010904", cat:"Licencias",        cls:"ct-lic", f:"intelisis", v:[0,0,0,0,0] },
+  { p:"ADM-LICENCIAS DE PROGRAMAS",        prov:"Photoshop arquitectas",                    cta:"412010904", cat:"Licencias",        cls:"ct-lic", f:"intelisis", v:[0,0,0,110,0] },
+  { p:"ADM-INTELIGENCIA ARTIFICIAL",       prov:"OpenAI (múltiples usuarios)",              cta:"412010904", cat:"IA",               cls:"ct-ia",  f:"intelisis", v:[60,180,120,145,25] },
+  { p:"ADM-INTELIGENCIA ARTIFICIAL",       prov:"HeyGen Technology",                        cta:"412010904", cat:"IA",               cls:"ct-ia",  f:"intelisis", v:[0,36.25,36.25,0,72.50] },
+  { p:"ADM-INTELIGENCIA ARTIFICIAL",       prov:"Anthropic (Claude)",                       cta:"412010904", cat:"IA",               cls:"ct-ia",  f:"intelisis", v:[0,0,125,0,0] },
+  { p:"ADM-INTELIGENCIA ARTIFICIAL",       prov:"Moonflow LLC",                             cta:"412010904", cat:"IA",               cls:"ct-ia",  f:"intelisis", v:[0,149,149,0,0] },
+  { p:"ADM-INTELIGENCIA ARTIFICIAL",       prov:"Licencias Copilot (ppto)",                 cta:"412010904", cat:"IA",               cls:"ct-ia",  f:"nuevo",     v:[0,0,0,0,0] },
+  { p:"UDESA-SUSCRIPCIONES DE SOFTWARE",   prov:"Azure (Data & Graphics)",                  cta:"412010905", cat:"Suscripciones",    cls:"ct-sus", f:"intelisis", v:[895.84,956.26,963.09,0,0] },
+  { p:"UDESA-SUSCRIPCIONES DE SOFTWARE",   prov:"Microsoft 365 IB",                         cta:"412010905", cat:"Suscripciones",    cls:"ct-sus", f:"intelisis", v:[161.88,428.01,0,416.92,178.78] },
+  { p:"UDESA-SUSCRIPCIONES DE SOFTWARE",   prov:"Autodesk",                                 cta:"412010905", cat:"Suscripciones",    cls:"ct-sus", f:"intelisis", v:[0,0,427.97,1587.95,0] },
+  { p:"UDESA-SUSCRIPCIONES DE SOFTWARE",   prov:"GLPi (Inventario IT)",                     cta:"412010905", cat:"Suscripciones",    cls:"ct-sus", f:"intelisis", v:[56.45,56.45,55.41,55.94,0] },
+  { p:"ADM-COMUNICACIONES",                prov:"Internet IB (Liberty Networks)",            cta:"412010701", cat:"Comunicaciones",   cls:"ct-com", f:"intelisis", v:[600,600,600,600,600] },
+  { p:"UDESA-SOPORTE TÉCNICO TERCERIZADO", prov:"Técnico destacado KNK (Canizalez)",        cta:"412011220", cat:"Servicios TI",     cls:"ct-ti",  f:"intelisis", v:[785.72,785.72,785.72,785.72,785.72] },
+  { p:"UDESA-SOPORTE TÉCNICO TERCERIZADO", prov:"Soporte visitas de campo (Cruz Treminio)", cta:"412011220", cat:"Servicios TI",     cls:"ct-ti",  f:"intelisis", v:[0,207.9,600.6,300.3,0] },
+  { p:"ADM-MANT. MOBILIARIO Y EQUIPO",     prov:"Mantenimiento impresores RICOH",           cta:"412010602", cat:"Hardware / Equipo",cls:"ct-hw",  f:"intelisis", v:[0,216,72,72,0] },
+  { p:"ADM-MANT. MOBILIARIO Y EQUIPO",     prov:"Mantenimiento racks IB (Cruz Treminio)",   cta:"412010602", cat:"Hardware / Equipo",cls:"ct-hw",  f:"intelisis", v:[0,0,140,0,0] },
+  { p:"ADM-MANT. MOBILIARIO Y EQUIPO",     prov:"Mantenimiento UPS IB (Cruz Treminio)",     cta:"412010602", cat:"Hardware / Equipo",cls:"ct-hw",  f:"intelisis", v:[0,0,100,0,0] },
+  { p:"ADM-MANT. MOBILIARIO Y EQUIPO",     prov:"Mantenimiento 4T (Cruz Treminio)",         cta:"412010602", cat:"Hardware / Equipo",cls:"ct-hw",  f:"intelisis", v:[0,0,1889,0,0] },
+  { p:"ADM-CONSUMIBLES FOTOCOPIADORA",     prov:"Toner impresores",                         cta:"412010906", cat:"Hardware / Equipo",cls:"ct-hw",  f:"intelisis", v:[0,0,522,0,0] },
+  { p:"ADM-CONSUMIBLES FOTOCOPIADORA",     prov:"Impresiones adicionales color",            cta:"412010906", cat:"Hardware / Equipo",cls:"ct-hw",  f:"intelisis", v:[0,0,0,0,0] },
+  { p:"ADM-MANT. PLANTA TELEFÓNICA",       prov:"Mantenimiento planta (EBD / E-Business)",  cta:"412010605", cat:"Comunicaciones",   cls:"ct-com", f:"intelisis", v:[335,0,0,335,0] },
+  { p:"UDESA-SERVICIOS DE TECNOLOGÍA",     prov:"Ilumi Data",                               cta:"412011220", cat:"Servicios TI",     cls:"ct-ti",  f:"intelisis", v:[0,769.92,343.79,0,0] },
+  { p:"UDESA-SERVICIOS DE TECNOLOGÍA",     prov:"Servicios tecnología JMTELCOM/Cruz T.",    cta:"412011220", cat:"Servicios TI",     cls:"ct-ti",  f:"intelisis", v:[0,0,0,7409.64,0] },
 ];
 
 const fmt = v => v > 0 ? "$"+v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}) : "—";
@@ -792,7 +800,7 @@ partidas.forEach(r => {
     ? `<span class="stag st-nuevo">PPTO Josué</span>`
     : `<span class="stag st-intelisis">Intelisis</span>`;
   tr.innerHTML =
-    `<td>${r.p}${pill}</td>`+
+    `<td>${r.p}${pill}<br><span style="font-size:11px;color:var(--bv-gris-lt);font-weight:400;">${r.prov||""}</span></td>`+
     `<td style="color:var(--bv-gris-lt);font-size:11px;">${r.cta}</td>`+
     `<td><span class="ctag ${r.cls}">${r.cat}</span></td>`+
     `<td>${ftag}</td>`+
@@ -803,7 +811,7 @@ partidas.forEach(r => {
 const totTr = document.createElement("tr");
 totTr.className="total-row";
 totTr.innerHTML=
-  `<td colspan="4" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;">Total general — 17 partidas</td>`+
+  `<td colspan="4" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;">Total general — 25 partidas</td>`+
   totByMes.map(v=>`<td class="r">${fmt(v)}</td>`).join("")+
   `<td class="r" style="color:var(--bv-naranja);">$${grand.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</td>`;
 tbody.appendChild(totTr);
