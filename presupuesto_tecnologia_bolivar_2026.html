@@ -4,7 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Presupuesto Tecnología 2026 — Inversiones Bolívar</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Archivo+Narrow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* System font stack — no external dependency, works on all networks */
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-narrow: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+}
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 /* ─── BOLIVAR DESIGN TOKENS ──────────────────────────────────────────── */
@@ -24,7 +30,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--font-sans);
   background: var(--bv-blanco);
   color: var(--bv-gris);
   font-size: 14px;
@@ -152,7 +158,7 @@ body {
   margin-bottom: 1.25rem;
 }
 .hero h1 {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--font-sans);
   font-size: 54px;
   font-weight: 300;
   color: var(--bv-blanco);
@@ -190,7 +196,7 @@ body {
   display: flex; gap: 12px;
 }
 .btn {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: .08em;
@@ -302,7 +308,7 @@ body {
   color: var(--bv-negro);
   letter-spacing: -.02em;
   line-height: 1;
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--font-sans);
   white-space: nowrap;
   overflow: visible;
 }
@@ -326,12 +332,14 @@ body {
   background: var(--bv-borde);
   border: 1px solid var(--bv-borde);
   border-radius: 3px;
-  overflow: hidden;
+  overflow: visible;
   margin-bottom: 4rem;
 }
 .chart-panel {
   background: var(--bv-blanco);
   padding: 2.5rem;
+  min-width: 0;
+  overflow: visible;
 }
 .chart-title {
   font-size: 11px;
@@ -541,12 +549,22 @@ tr.total-row td.r { color: #fff; }
   border-radius: 2px;
 }
 
+@media (max-width: 1100px) {
+  .charts-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 900px) {
   .navbar, .content { padding-left: 1.5rem; padding-right: 1.5rem; }
   .hero { padding: 2.5rem 1.5rem; }
   .hero h1 { font-size: 26px; }
   .charts-grid { grid-template-columns: 1fr; }
   .footer { padding: 2rem 1.5rem; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .table-scroll { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+  .kpi-grid { grid-template-columns: 1fr 1fr !important; }
+  .hero h1 { font-size: 22px; }
+  .navbar-right a { display: none; }
 }
 @media print {
   .navbar, .hero-actions, .btn { display: none !important; }
@@ -814,7 +832,7 @@ new Chart(document.getElementById("chartBar"),{
     responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false}},
     scales:{
-      x:{stacked:true,grid:{display:false},ticks:{color:"#A8A8A7",font:{family:"Archivo",size:11}}},
+      x:{stacked:true,grid:{display:false},ticks:{color:"#A8A8A7",font:{family:'system-ui',size:12}}},
       y:{stacked:true,grid:{color:"rgba(0,0,0,0.04)"},
          ticks:{color:"#A8A8A7",font:{family:"Archivo",size:10},callback:v=>"$"+(v/1000).toFixed(0)+"K"}}
     }
