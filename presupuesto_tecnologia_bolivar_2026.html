@@ -801,27 +801,35 @@ const partidas = [
 ];
 
 const fmt = v => v > 0 ? "$"+v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}) : "—";
-const totByMes = meses.map((_,i) => partidas.reduce((s,r)=>s+r.v[i],0));
+const meses5   = ["Ene","Feb","Mar","Abr","May"];
+const realIdx  = [0,1,2,3,4]; // Ene-May indices in v[]
+
+// Real totals per month (Ene-May)
+const totByMes = meses5.map((_,i) => partidas.reduce((s,r)=>s+(r.v[i]||0),0));
 const grand    = totByMes.reduce((a,b)=>a+b,0);
 const maxIdx   = totByMes.indexOf(Math.max(...totByMes));
-const soloAmar = partidas.filter(r=>r.f==="intelisis");
-const totAmar  = soloAmar.reduce((s,r)=>s+r.v.reduce((a,b)=>a+b,0),0);
 
-document.getElementById("kpiTotal").innerHTML = "$"+totAmar.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-document.getElementById("kpiProm").innerHTML  = "$"+(totAmar/4).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-document.getElementById("kpiMes").innerHTML   = "<strong>"+meses[maxIdx]+"</strong>";
+// Real partidas only (f==="real")
+const realPart = partidas.filter(r=>r.f==="real");
+const totReal  = realPart.reduce((s,r)=>s+r.v.reduce((a,b)=>a+b,0),0);
+const promMen  = totReal/4; // Ene-Abr 4 periodos
+
+// KPIs
+document.getElementById("kpiTotal").innerHTML = "$"+totReal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+document.getElementById("kpiProm").innerHTML  = "$"+promMen.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+document.getElementById("kpiMes").innerHTML   = "<strong>"+meses5[maxIdx]+"</strong>";
 document.getElementById("kpiMesSub").textContent = "$"+totByMes[maxIdx].toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})+" todas partidas";
 
-// TABLE
+// TABLE — show Ene-May real columns
 const tbody = document.getElementById("tableBody");
 partidas.forEach(r => {
   const tot = r.v.reduce((a,b)=>a+b,0);
   const tr  = document.createElement("tr");
-  if(r.f==="nuevo") tr.className="nuevo";
-  const pill = r.f==="nuevo" ? `<span class="tag-nuevo">nuevo</span>` : "";
-  const ftag = r.f==="nuevo"
-    ? `<span class="stag st-nuevo">PPTO Josué</span>`
-    : `<span class="stag st-intelisis">Intelisis</span>`;
+  if(r.f==="ppto") tr.className="nuevo";
+  const pill = r.f==="ppto" ? `<span class="tag-nuevo">ppto</span>` : "";
+  const ftag = r.f==="ppto"
+    ? `<span class="stag st-nuevo">PPTO</span>`
+    : `<span class="stag st-intelisis">Real</span>`;
   tr.innerHTML =
     `<td>${r.p}${pill}<br><span style="font-size:11px;color:var(--bv-gris-lt);font-weight:400;">${r.prov||""}</span></td>`+
     `<td style="color:var(--bv-gris-lt);font-size:11px;">${r.cta}</td>`+
@@ -834,28 +842,34 @@ partidas.forEach(r => {
 const totTr = document.createElement("tr");
 totTr.className="total-row";
 totTr.innerHTML=
-  `<td colspan="4" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;">Total general — 48 partidas</td>`+
+  `<td colspan="4" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;">Total general — 48 partidas (Real Ene–May)</td>`+
   totByMes.map(v=>`<td class="r">${fmt(v)}</td>`).join("")+
   `<td class="r" style="color:var(--bv-naranja);">$${grand.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}</td>`;
 tbody.appendChild(totTr);
 
 // CATS
 const cats={};
-partidas.forEach(r=>{const t=r.v.reduce((a,b)=>a+b,0);cats[r.cat]=(cats[r.cat]||0)+t;});
-const catKeys=Object.keys(cats);
+partidas.forEach(r=>{
+  const t=r.v.reduce((a,b)=>a+b,0);
+  cats[r.cat]=(cats[r.cat]||0)+t;
+});
+const catKeys=Object.keys(cats).filter(k=>cats[k]>0);
 const catVals=catKeys.map(k=>cats[k]);
-const pal=["#1D5DB3","#5B3FCB","#0D7A5F","#E8682A","#991515","#7C5500","#0A6E89"];
+const pal=["#1D5DB3","#5B3FCB","#0D7A5F","#E8682A","#991515","#7C5500","#0A6E89","#C8722A"];
 
-// BAR
+// BAR — real by category per month (Ene-May)
 const barLeg=document.getElementById("barLeg");
 catKeys.forEach((k,i)=>{
   barLeg.innerHTML+=`<span class="bar-li"><span class="bar-dot" style="background:${pal[i]}"></span>${k}</span>`;
 });
 const ds=catKeys.map((cat,ci)=>({
   label:cat,
-  data:meses.map((_,mi)=>Math.round(partidas.filter(r=>r.cat===cat).reduce((s,r)=>s+r.v[mi],0)*100)/100),
-  backgroundColor:pal[ci],borderRadius:1,borderSkipped:false
+  data:meses5.map((_,mi)=>Math.round(partidas.filter(r=>r.cat===cat).reduce((s,r)=>s+(r.v[mi]||0),0)*100)/100),
+  backgroundColor:pal[ci%pal.length],
+  borderRadius:2,
+  borderSkipped:false
 }));
+const meses = meses5;
 new Chart(document.getElementById("chartBar"),{
   type:"bar",
   data:{labels:meses,datasets:ds},
@@ -875,11 +889,11 @@ new Chart(document.getElementById("chartDona"),{
   type:"doughnut",
   data:{labels:catKeys,datasets:[{data:catVals,backgroundColor:pal,borderWidth:2,borderColor:"#fff"}]},
   options:{
-    responsive:true,maintainAspectRatio:false,cutout:"66%",
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>" $"+c.parsed.toLocaleString("en-US",{minimumFractionDigits:2})}}}
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    cutout:"68%"
   }
-});
-const dLeg=document.getElementById("donaLeg");
+})const dLeg=document.getElementById("donaLeg");
 const dTot=catVals.reduce((a,b)=>a+b,0);
 catKeys.forEach((k,i)=>{
   dLeg.innerHTML+=
