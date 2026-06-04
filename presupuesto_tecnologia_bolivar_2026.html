@@ -822,9 +822,9 @@ const grand    = totByMes.reduce((a,b)=>a+b,0);
 const maxIdx   = totByMes.indexOf(Math.max(...totByMes));
 
 // Solo partidas con datos reales
-const realPart = partidas.filter(r=>r.f==="real");
-const totReal  = realPart.reduce((s,r)=>s+r.v.reduce((a,b)=>a+b,0),0);
-const promMen  = totReal / 5; // 5 periodos Ene-May
+// Total Real anual del Excel (fila Total general, columna Total Real)
+const totReal  = 80983.17;
+const promMen  = totReal / 5; // 5 periodos Ene-May con datos
 
 // ── KPIs ──────────────────────────────────────────────────────────────────────
 document.getElementById("kpiTotal").innerHTML    = "$"+totReal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
