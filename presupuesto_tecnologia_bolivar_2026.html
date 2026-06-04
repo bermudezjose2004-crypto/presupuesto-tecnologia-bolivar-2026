@@ -817,14 +817,16 @@ const fmt = v => v > 0 ? "$"+v.toLocaleString("en-US",{minimumFractionDigits:2,m
 // Real totals per month (Ene-May)
 
 // ── TOTALS ────────────────────────────────────────────────────────────────────
-// ── TOTALES POR MES (directo del Excel hoja Tecnologia) ──────────────────────
-const totPptoMes = [20527.1,13247.1,17047.1,14027.1,13782.1,16112.1,14962.1,13332.1,16662.1,41353.6,19123.6,20410.1];
-const totRealMes = [22376.19,10585.29,10541.76,12640.61,13928.05,3625.0,0,0,0,0,0,0];
-const totByMes   = totPptoMes; // para gráfica barras (presupuesto)
-const grand      = 220586.2;
-const maxIdx     = totRealMes.indexOf(Math.max(...totRealMes));
-const totReal    = 80983.17;
-const promMen    = 13497.19; // 80983.17 / 6 meses con datos (Ene–Jun)
+// ── TOTALES (directo del Excel, hoja Tecnologia) ─────────────────────────────
+const totByMes = meses.map((_,i) => partidas.reduce((s,r)=>s+(r.v[i]||0),0));
+const grand    = totByMes.reduce((a,b)=>a+b,0);
+const maxIdx   = totByMes.indexOf(Math.max(...totByMes));
+
+const realPart = partidas.filter(r=>r.f==="real");
+// KPI total real: valor exacto del Excel (fila Total general)
+const totReal  = 80983.17;
+// Promedio sobre 6 meses con datos reales (Ene–Jun)
+const promMen  = 13497.19;
 
 // ── KPIs ──────────────────────────────────────────────────────────────────────
 document.getElementById("kpiTotal").innerHTML    = "$"+totReal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
