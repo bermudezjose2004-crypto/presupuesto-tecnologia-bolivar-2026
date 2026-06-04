@@ -571,6 +571,7 @@ tr.total-row td.r { color: #fff; }
   body { background: #fff; }
 }
 </style>
+<!-- cache-bust: 20260604_224033 -->
 </head>
 <body>
 
@@ -749,6 +750,12 @@ tr.total-row td.r { color: #fff; }
 <script>
 const meses = ["Ene","Feb","Mar","Abr","May"];
 
+// ── DATOS REALES DEL EXCEL (hoja Tecnologia) ──────────────────────────────────
+const totRealMes = [22376.19, 10585.29, 10541.76, 12640.61, 13928.05];
+const totPptoMes = [20527.10, 13247.10, 17047.10, 14027.10, 13782.10];
+const totReal    = 80983.17;   // Total Real anual (Excel, fila Total general)
+const promMen    = 13497.19;   // 80983.17 / 6 meses con datos (Ene–Jun)
+
 const partidas = [
   {p:"UDESA-SUSCRIPCIONES DE SOFTWARE",prov:"Autodesk (Grupo Octo/ Cleverbridge gmbh)",cta:"412010905",cat:"Suscripciones",cls:"ct-sus",f:"ppto",v:[3000,3000,3000,3000,3000]},
   {p:"UDESA-SUSCRIPCIONES DE SOFTWARE",prov:"Autodesk (Grupo Octo/ Cleverbridge gmbh)",cta:"412010905",cat:"Suscripciones",cls:"ct-sus",f:"real",v:[15707,0,0,0,1984.94]},
@@ -819,14 +826,9 @@ const fmt = v => v > 0 ? "$"+v.toLocaleString("en-US",{minimumFractionDigits:2,m
 // ── TOTALS ────────────────────────────────────────────────────────────────────
 // ── TOTALES (directo del Excel, hoja Tecnologia) ─────────────────────────────
 const totByMes = meses.map((_,i) => partidas.reduce((s,r)=>s+(r.v[i]||0),0));
-const grand    = totByMes.reduce((a,b)=>a+b,0);
-const maxIdx   = totByMes.indexOf(Math.max(...totByMes));
-
+const grand    = totPptoMes.reduce((a,b)=>a+b,0);
+const maxIdx   = totRealMes.indexOf(Math.max(...totRealMes));
 const realPart = partidas.filter(r=>r.f==="real");
-// KPI total real: valor exacto del Excel (fila Total general)
-const totReal  = 80983.17;
-// Promedio sobre 6 meses con datos reales (Ene–Jun)
-const promMen  = 13497.19;
 
 // ── KPIs ──────────────────────────────────────────────────────────────────────
 document.getElementById("kpiTotal").innerHTML    = "$"+totReal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
