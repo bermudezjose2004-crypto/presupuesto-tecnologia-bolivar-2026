@@ -602,7 +602,7 @@ tr.total-row td.r { color: #fff; }
     <span class="hero-pill">Fuente: Intelisis ERP + PPTO 2026</span>
   </div>
   <div class="hero-actions">
-    <button class="btn btn-naranja" onclick="exportCSV()">Descargar Excel</button>
+    <a class="btn btn-naranja" href="https://github.com/bermudezjose2004-crypto/presupuesto-tecnologia-bolivar-2026/raw/main/Presuspuesto_Tecnologi_a_2026_mayo.xlsx" download="Presuspuesto_Tecnologi_a_2026_mayo.xlsx">Descargar Excel</a>
     <button class="btn btn-outline" onclick="window.print()">Imprimir</button>
   </div>
 </div>
@@ -910,15 +910,7 @@ catKeys.forEach((k,i)=>{
     <span class="dona-pct">${pct}%</span></div>`;
 });
 
-// ── BOTÓN DESCARGA EXCEL ─────────────────────────────────────────────────────
-document.getElementById("btnExcel").addEventListener("click",()=>{
-  const a=document.createElement("a");
-  a.href="https://github.com/bermudezjose2004-crypto/presupuesto-tecnologia-bolivar-2026/raw/main/Presuspuesto_Tecnologi_a_2026_mayo.xlsx";
-  a.download="Presuspuesto_Tecnologi_a_2026_mayo.xlsx";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-});
+// Descarga Excel: manejada directamente en el <a> del botón
 </script>
 </body>
 </html>
