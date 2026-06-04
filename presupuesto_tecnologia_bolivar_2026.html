@@ -597,7 +597,7 @@ tr.total-row td.r { color: #fff; }
   <div class="hero-eyebrow">Área de Tecnología — Ejercicio 2026</div>
   <h1>Presupuesto de <strong>Gastos</strong><br>Tecnología e Infraestructura</h1>
   <div class="hero-meta">
-    <span class="hero-pill">Enero – Mayo 2026 · Real Intelisis</span>
+    <span class="hero-pill">Enero – Junio 2026 · Real Intelisis</span>
     <span class="hero-pill accent">48 partidas</span>
     <span class="hero-pill">Fuente: Intelisis ERP + PPTO 2026</span>
   </div>
@@ -625,18 +625,18 @@ tr.total-row td.r { color: #fff; }
   <!-- KPI SECTION -->
   <div class="section-eyebrow">Resumen ejecutivo</div>
   <div class="section-heading">Indicadores <strong>clave</strong></div>
-  <div class="section-sub">Gasto real acumulado Ene–May 2026 · Intelisis ERP</div>
+  <div class="section-sub">Gasto real acumulado Ene–Jun 2026 · Intelisis ERP</div>
 
   <div class="kpi-grid">
     <div class="kpi-card accent">
       <div class="kpi-label">Gasto real acumulado</div>
       <div class="kpi-value" id="kpiTotal">—</div>
-      <div class="kpi-sub">Ene – May · Intelisis</div>
+      <div class="kpi-sub">Ene – Jun · Intelisis ERP</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Promedio mensual</div>
       <div class="kpi-value" id="kpiProm">—</div>
-      <div class="kpi-sub">5 meses Ene–May 2026</div>
+      <div class="kpi-sub">6 meses Ene–Jun 2026</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Mes más alto</div>
@@ -646,7 +646,7 @@ tr.total-row td.r { color: #fff; }
     <div class="kpi-card">
       <div class="kpi-label">Total partidas</div>
       <div class="kpi-value"><strong>27</strong></div>
-      <div class="kpi-sub">Ene–May 2026</div>
+      <div class="kpi-sub">Ene–Jun 2026</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Categorías</div>
@@ -660,7 +660,7 @@ tr.total-row td.r { color: #fff; }
   <!-- CHARTS SECTION -->
   <div class="section-eyebrow">Análisis visual</div>
   <div class="section-heading">Gasto por <strong>categoría y mes</strong></div>
-  <div class="section-sub">Enero – Mayo 2026 · Todas las partidas</div>
+  <div class="section-sub">Enero – Junio 2026 · Todas las partidas</div>
 
   <div class="charts-grid">
     <div class="chart-panel">
@@ -684,7 +684,7 @@ tr.total-row td.r { color: #fff; }
   <!-- TABLE SECTION -->
   <div class="section-eyebrow">Detalle completo</div>
   <div class="section-heading">Partidas de <strong>presupuesto</strong></div>
-  <div class="section-sub">48 partidas · Enero – Mayo 2026</div>
+  <div class="section-sub">48 partidas · Enero – Junio 2026</div>
 
   <div class="table-wrap-outer">
     <div class="table-header">
@@ -817,20 +817,20 @@ const fmt = v => v > 0 ? "$"+v.toLocaleString("en-US",{minimumFractionDigits:2,m
 // Real totals per month (Ene-May)
 
 // ── TOTALS ────────────────────────────────────────────────────────────────────
-const totByMes = meses.map((_,i) => partidas.reduce((s,r)=>s+(r.v[i]||0),0));
-const grand    = totByMes.reduce((a,b)=>a+b,0);
-const maxIdx   = totByMes.indexOf(Math.max(...totByMes));
-
-// Solo partidas con datos reales
-// Total Real anual del Excel (fila Total general, columna Total Real)
-const totReal  = 80983.17;
-const promMen  = totReal / 5; // 5 periodos Ene-May con datos
+// ── TOTALES POR MES (directo del Excel hoja Tecnologia) ──────────────────────
+const totPptoMes = [20527.1,13247.1,17047.1,14027.1,13782.1,16112.1,14962.1,13332.1,16662.1,41353.6,19123.6,20410.1];
+const totRealMes = [22376.19,10585.29,10541.76,12640.61,13928.05,3625.0,0,0,0,0,0,0];
+const totByMes   = totPptoMes; // para gráfica barras (presupuesto)
+const grand      = 220586.2;
+const maxIdx     = totRealMes.indexOf(Math.max(...totRealMes));
+const totReal    = 80983.17;
+const promMen    = 13497.19; // 80983.17 / 6 meses con datos (Ene–Jun)
 
 // ── KPIs ──────────────────────────────────────────────────────────────────────
 document.getElementById("kpiTotal").innerHTML    = "$"+totReal.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 document.getElementById("kpiProm").innerHTML     = "$"+promMen.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 document.getElementById("kpiMes").innerHTML      = "<strong>"+meses[maxIdx]+"</strong>";
-document.getElementById("kpiMesSub").textContent = "$"+totByMes[maxIdx].toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})+" todas partidas";
+document.getElementById("kpiMesSub").textContent = "$"+totRealMes[maxIdx].toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})+" todas partidas";
 
 // ── TABLE ─────────────────────────────────────────────────────────────────────
 const tbody = document.getElementById("tableBody");
